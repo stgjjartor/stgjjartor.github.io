@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Citas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77d94c 3px solid;
+        }
+        header h1 {
+            margin: 0;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+        header li {
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        #menu {
+            background: #333;
+            color: #fff;
+            padding: 15px 0;
+        }
+        #menu a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+        }
+        #menu a:hover {
+            background: #77d94c;
+            transition: 0.3s;
+        }
+        .content {
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
+        form {
+            margin: 20px;
+        }
+        input[type="text"], input[type="password"], input[type="datetime-local"], input[type="number"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gestión de Citas</h1>
+        <ul>
+            <li><a href="#" onclick="showContent('citas-clientes')">Citas y Clientes</a></li>
+            <li><a href="#" onclick="showContent('tpv')">TPV</a></li>
+            <li><a href="#" onclick="showContent('tratamientos')">Tratamientos</a></li>
+            <li><a href="#" onclick="showContent('inventario')">Inventario</a></li>
+        </ul>
+    </header>
+    <div class="container">
+        <div id="citas-clientes" class="content">
+            <h2>Citas y Clientes</h2>
+            <form id="cliente-form">
+                <label for="nombre">Nombre del Cliente:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" required>
+                <label for="cita">Fecha y Hora de la Cita:</label>
+                <input type="datetime-local" id="cita" name="cita" required>
+                <button type="button" onclick="agregarCliente()">Agregar Cliente y Cita</button>
+            </form>
+            <div id="clientes-lista"></div>
+        </div>
+        <div id="tpv" class="content">
+            <h2>TPV</h2>
+            <!-- TPV Content -->
+        </div>
+        <div id="tratamientos" class="content">
+            <h2>Tratamientos</h2>
+            <form id="tratamiento-form">
+                <label for="tratamiento">Nombre del Tratamiento:</label>
+                <input type="text" id="tratamiento" name="tratamiento" required>
+                <button type="button" onclick="agregarTratamiento()">Agregar Tratamiento</button>
+            </form>
+            <div id="tratamientos-lista"></div>
+        </div>
+        <div id="inventario" class="content">
+            <h2>Inventario</h2>
+            <form id="producto-form">
+                <label for="producto">Nombre del Producto:</label>
+                <input type="text" id="producto" name="producto" required>
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" required>
+                <button type="button" onclick="agregarProducto()">Agregar Producto</button>
+            </form>
+            <div id="inventario-lista"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8OdhN3fGV1Cddnfg6PR0fAONsEpAAoIE",
+            authDomain: "boletines-19b15.firebaseapp.com",
+            databaseURL: "https://boletines-19b15-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "boletines-19b15",
+            storageBucket: "boletines-19b15.appspot.com",
+            messagingSenderId: "243669411437",
+            appId: "1:243669411437:web:b66e3203df873ec4c08164",
+            measurementId: "G-9H8HL91EH3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        function showContent(id) {
+            var contents = document.querySelectorAll('.content');
+            contents.forEach(function(content) {
+                content.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
+
+        function agregarCliente() {
+            var nombre = document.getElementById('nombre').value;
+            var telefono = document.getElementById('telefono').value;
+            var cita = document.getElementById('cita').value;
+
+            const clienteRef = ref(db, 'clientes');
+            const newClienteRef = push(clienteRef);
+            set(newClienteRef, {
+                nombre: nombre,
+                telefono: telefono,
+                cita: cita
+            });
+
+            document.getElementById('cliente-form').reset();
+            listarClientes();
+        }
+
+        function listarClientes() {
+            const clientesRef = ref(db, 'clientes');
+            onValue(clientesRef, (snapshot) => {
+                const data = snapshot.val();
+                const lista = document.getElementById('clientes-lista');
+                lista.innerHTML = '';
+                for (let key in data) {
+                    lista.innerHTML += `<p>Nombre: ${data[key].nombre} | Teléfono: ${data[key].telefono} | Cita: ${data[key].cita}</p>`;
+                }
+            });
+        }
+
+        function agregarTratamiento() {
+            var tratamiento = document.getElementById('tratamiento').value;
+
+            const tratamientoRef = ref(db, 'tratamientos');
+            const newTratamientoRef = push(tratamientoRef);
+            set(newTratamientoRef, {
+                tratamiento: tratamiento
+            });
+
+            document.getElementById('tratamiento-form').reset();
+            listarTratamientos();
+        }
+
+        function listarTratamientos() {
+            const tratamientosRef = ref(db, 'tratamientos');
+            onValue(tratamientosRef, (snapshot) => {
+                const data = snapshot.val();
+                const lista = document.getElementById('tratamientos-lista');
+                lista.innerHTML = '';
+                for (let key in data) {
+                    lista.innerHTML += `<p>Tratamiento: ${data[key].tratamiento}</p>`;
+                }
+            });
+        }
+
+        function agregarProducto() {
+            var producto = document.getElementById('producto').value;
+            var cantidad = document.getElementById('cantidad').value;
+
+            const productoRef = ref(db, 'inventario');
+            const newProductoRef = push(productoRef);
+            set(newProductoRef, {
+                producto: producto,
+                cantidad: cantidad
+            });
+
+            document.getElementById('producto-form').reset();
+            listarProductos();
+        }
+
+        function listarProductos() {
+            const productosRef = ref(db, 'inventario');
+            onValue(productosRef, (snapshot) => {
+                const data = snapshot.val();
+                const lista = document.getElementById('inventario-lista');
+                lista.innerHTML = '';
+                for (let key in data) {
+                    lista.innerHTML += `<p>Producto: ${data[key].producto} | Cantidad: ${data[key].cantidad}</p>`;
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            listarClientes();
+            listarTratamientos();
+            listarProductos();
+        });
+    </script>
+</body>
+</html>
