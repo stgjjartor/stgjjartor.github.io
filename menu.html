@@ -36,8 +36,18 @@
     
     <script>
         function order(dish) {
-            database.ref('orders').push({ dish: dish, table: 'mesa_1' });
-            alert("Has pedido: " + dish);
+            const table = new URLSearchParams(window.location.search).get("mesa") || "desconocida";
+            database.ref('orders').push({
+                dish: dish,
+                table: table,
+                timestamp: Date.now()
+            }, (error) => {
+                if (error) {
+                    alert("Error al registrar el pedido");
+                } else {
+                    alert("Has pedido: " + dish);
+                }
+            });
         }
         
         function view3D(dish) {
