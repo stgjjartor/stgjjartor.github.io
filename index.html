@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La cocina de Ana</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="firebase-config.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="qr-section">
+        <h2>Escanea el código QR para acceder al menú</h2>
+        <canvas id="qrcode"></canvas>
+    </div>
+    
+    <div id="login" style="display:none;">
+        <h2>Acceso para miembros</h2>
+        <input type="text" id="username" placeholder="Usuario">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="login()">Ingresar</button>
+    </div>
+    
+    <div id="app">
+        <h1>Bienvenido a La cocina de Ana</h1>
+        <button id="startOrder">Comenzar pedido</button>
+    </div>
+    
+    <div id="menu" style="display:none;">
+        <h2>Menú</h2>
+        <div class="dish">
+            <img src="perrito.jpg" alt="Perrito caliente">
+            <button onclick="order('Perrito caliente')">Pedir</button>
+            <button onclick="view3D('perrito')">Ver en 3D</button>
+        </div>
+        <div class="dish">
+            <img src="hamburguesa.jpg" alt="Hamburguesa">
+            <button onclick="order('Hamburguesa')">Pedir</button>
+            <button onclick="view3D('hamburguesa')">Ver en 3D</button>
+        </div>
+        <div class="dish">
+            <img src="ensalada.jpg" alt="Ensalada">
+            <button onclick="order('Ensalada')">Pedir</button>
+            <button onclick="view3D('ensalada')">Ver en 3D</button>
+        </div>
+        <div class="dish">
+            <img src="entrecot.jpg" alt="Entrecot">
+            <button onclick="order('Entrecot')">Pedir</button>
+            <button onclick="view3D('entrecot')">Ver en 3D</button>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById("startOrder").addEventListener("click", function() {
+            document.getElementById("app").style.display = "none";
+            document.getElementById("menu").style.display = "block";
+        });
+
+        function order(dish) {
+            database.ref('orders').push({ dish: dish, table: 'mesa_1' });
+            alert("Has pedido: " + dish);
+        }
+        
+        function view3D(dish) {
+            alert("Visualizando en 3D: " + dish);
+        }
+        
+        function login() {
+            const user = document.getElementById("username").value;
+            const pass = document.getElementById("password").value;
+            if (user === "1234" && pass === "1234") {
+                alert("Acceso concedido");
+                window.location.href = "admin.html";
+            } else {
+                alert("Usuario o contraseña incorrectos");
+            }
+        }
+
+        // Generar código QR
+        function generateQR() {
+            const url = window.location.href + "?mesa=1";
+            const qr = new QRious({
+                element: document.getElementById('qrcode'),
+                value: url,
+                size: 200
+            });
+        }
+        generateQR();
+    </script>
+</body>
+</html>
