@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú - La cocina de Ana</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script src="firebase-config.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Menú de La cocina de Ana</h1>
+    <div id="menu">
+        <div class="dish">
+            <img src="perrito.jpg" alt="Perrito caliente">
+            <button onclick="order('Perrito caliente')">Pedir</button>
+            <button onclick="view3D('perrito')">Ver en 3D</button>
+        </div>
+        <div class="dish">
+            <img src="hamburguesa.jpg" alt="Hamburguesa">
+            <button onclick="order('Hamburguesa')">Pedir</button>
+            <button onclick="view3D('hamburguesa')">Ver en 3D</button>
+        </div>
+        <div class="dish">
+            <img src="ensalada.jpg" alt="Ensalada">
+            <button onclick="order('Ensalada')">Pedir</button>
+            <button onclick="view3D('ensalada')">Ver en 3D</button>
+        </div>
+        <div class="dish">
+            <img src="entrecot.jpg" alt="Entrecot">
+            <button onclick="order('Entrecot')">Pedir</button>
+            <button onclick="view3D('entrecot')">Ver en 3D</button>
+        </div>
+    </div>
+    
+    <script>
+        function order(dish) {
+            database.ref('orders').push({ dish: dish, table: 'mesa_1' });
+            alert("Has pedido: " + dish);
+        }
+        
+        function view3D(dish) {
+            alert("Visualizando en 3D: " + dish);
+        }
+    </script>
+</body>
+</html>

@@ -17,7 +17,7 @@
         <canvas id="qrcode"></canvas>
     </div>
     
-    <div id="login" style="display:none;">
+    <div id="login">
         <h2>Acceso para miembros</h2>
         <input type="text" id="username" placeholder="Usuario">
         <input type="password" id="password" placeholder="Contraseña">
@@ -29,45 +29,11 @@
         <button id="startOrder">Comenzar pedido</button>
     </div>
     
-    <div id="menu" style="display:none;">
-        <h2>Menú</h2>
-        <div class="dish">
-            <img src="perrito.jpg" alt="Perrito caliente">
-            <button onclick="order('Perrito caliente')">Pedir</button>
-            <button onclick="view3D('perrito')">Ver en 3D</button>
-        </div>
-        <div class="dish">
-            <img src="hamburguesa.jpg" alt="Hamburguesa">
-            <button onclick="order('Hamburguesa')">Pedir</button>
-            <button onclick="view3D('hamburguesa')">Ver en 3D</button>
-        </div>
-        <div class="dish">
-            <img src="ensalada.jpg" alt="Ensalada">
-            <button onclick="order('Ensalada')">Pedir</button>
-            <button onclick="view3D('ensalada')">Ver en 3D</button>
-        </div>
-        <div class="dish">
-            <img src="entrecot.jpg" alt="Entrecot">
-            <button onclick="order('Entrecot')">Pedir</button>
-            <button onclick="view3D('entrecot')">Ver en 3D</button>
-        </div>
-    </div>
-    
     <script>
         document.getElementById("startOrder").addEventListener("click", function() {
-            document.getElementById("app").style.display = "none";
-            document.getElementById("menu").style.display = "block";
+            window.location.href = "menu.html";
         });
 
-        function order(dish) {
-            database.ref('orders').push({ dish: dish, table: 'mesa_1' });
-            alert("Has pedido: " + dish);
-        }
-        
-        function view3D(dish) {
-            alert("Visualizando en 3D: " + dish);
-        }
-        
         function login() {
             const user = document.getElementById("username").value;
             const pass = document.getElementById("password").value;
@@ -81,7 +47,7 @@
 
         // Generar código QR
         function generateQR() {
-            const url = window.location.href + "?mesa=1";
+            const url = window.location.origin + "/menu.html?mesa=1";
             const qr = new QRious({
                 element: document.getElementById('qrcode'),
                 value: url,
