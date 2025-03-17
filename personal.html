@@ -5,28 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zona del Personal</title>
     <link rel="stylesheet" href="styles.css">
+    <script type="module" src="firebase-config.js"></script>  <!-- Aquí incluimos Firebase -->
 </head>
 <body>
-    <!-- Zona Personal -->
     <div id="personalArea">
-        <button id="mesasBtn">Mesas</button>
-        <button id="chatBtn">Chat</button>
+        <h2>Pedidos de la Mesa 1</h2>
+        <div id="pedidos">
+            <!-- Aquí se mostrarán los pedidos -->
+        </div>
+        <button onclick="window.location.href='opciones_personal.html'">Volver</button>
     </div>
 
-    <!-- Mesas -->
-    <div id="mesasPage" class="hidden">
-        <h2>Mesas</h2>
-        <p>Mesa 1</p>
-        <button id="volverMesasBtn">Volver</button>
-    </div>
+    <script>
+        // Leer los pedidos de la Mesa 1 desde Firebase
+        const pedidosRef = ref(database, 'pedidos/mesa1'); // Ruta para los pedidos de la Mesa 1
+        const pedidosContainer = document.getElementById('pedidos');
 
-    <!-- Chat -->
-    <div id="chatPage" class="hidden">
-        <h2>Chat de la Mesa 1</h2>
-        <div id="chatMessages"></div>
-        <button id="volverChatBtn">Volver</button>
-    </div>
-
-    <script src="personal.js"></script>
+        // Obtener los datos de la base de datos de Firebase
+        get(pedidosRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                // Si hay datos, los mostramos
+                const pedidoData = snapshot.val();
+                const pedidoElement = document.createElement('div');
+                pedidoElement.textContent = `Plato: ${pedidoData.plato}, Fecha: ${pedidoData.fecha}`;
+                pedidosContainer.appendChild(pedidoElement);
+            } else {
+                // Si no hay pedidos
+                pedidosContainer.textContent = "No hay pedidos.";
+            }
+        }).catch((error) => {
+            console.error("Error al leer los pedidos: " + error);
+        });
+    </script>
 </body>
 </html>
