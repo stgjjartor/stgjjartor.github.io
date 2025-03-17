@@ -1,17 +1,23 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedido Chat</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div id="pagina4">
-        <h2>Chat con el camarero</h2>
-        <textarea id="mensajeCliente" placeholder="Escribe tu mensaje..."></textarea>
-        <button id="enviarMensajeBtn">Enviar</button>
-        <button onclick="window.location.href='opciones_cliente.html'">Volver</button>
-    </div>
-</body>
-</html>
+// Función para enviar el mensaje al chat
+document.getElementById('enviarMensajeBtn').addEventListener('click', function () {
+    const mensaje = document.getElementById('mensajeCliente').value;
+    
+    // Verificamos que haya un mensaje antes de enviarlo
+    if (mensaje.trim() !== "") {
+        const chatRef = ref(database, 'chat/mesa1');  // Ruta para el chat de la Mesa 1
+        const nuevoMensaje = {
+            mensaje: mensaje,
+            fecha: new Date().toLocaleString()
+        };
+
+        // Guardar el mensaje en Firebase
+        set(chatRef, nuevoMensaje)
+        .then(() => {
+            alert("¡Mensaje enviado con éxito!");
+            document.getElementById('mensajeCliente').value = ""; // Limpiar el campo
+        })
+        .catch((error) => {
+            alert("Error al enviar el mensaje: " + error);
+        });
+    }
+});
