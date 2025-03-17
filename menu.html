@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ver Menú</title>
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="firebase-config.js"></script>  <!-- Aquí incluimos Firebase -->
+    <script type="module" src="firebase-config.js"></script> <!-- Aquí incluimos Firebase -->
 </head>
 <body>
     <div id="pagina3">
@@ -34,23 +34,22 @@
 
     <script>
         // Función para guardar el pedido en Firebase
-function hacerPedido(plato) {
-    const pedidoRef = ref(database, 'pedidos/mesa1');  // Ruta para los pedidos de la Mesa 1
-    const nuevoPedido = {
-        plato: plato,
-        fecha: new Date().toLocaleString()
-    };
+        function hacerPedido(plato) {
+            const pedidoRef = ref(database, 'pedidos/mesa1');  // Ruta para los pedidos de la Mesa 1
+            const nuevoPedido = {
+                plato: plato,
+                fecha: new Date().toLocaleString()
+            };
 
-    // Guardar el pedido en Firebase
-    set(pedidoRef, nuevoPedido)
-    .then(() => {
-        alert("¡Pedido realizado con éxito! El pedido de " + plato + " ha sido registrado.");
-    })
-    .catch((error) => {
-        alert("Error al realizar el pedido: " + error);
-    });
-}
-
+            // Guardar el pedido en Firebase
+            set(pedidoRef, nuevoPedido)
+            .then(() => {
+                alert("¡Pedido realizado con éxito! El pedido de " + plato + " ha sido registrado.");
+            })
+            .catch((error) => {
+                alert("Error al realizar el pedido: " + error);
+            });
+        }
     </script>
 </body>
 </html>
