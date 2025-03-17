@@ -41,8 +41,9 @@
                 fecha: new Date().toLocaleString()
             };
 
-            // Guardar el pedido en Firebase
-            set(pedidoRef, nuevoPedido)
+            // Usamos push() para agregar un nuevo pedido sin sobrescribir los existentes
+            const newPedidoRef = push(pedidoRef);  // Crear un nuevo nodo para cada pedido
+            set(newPedidoRef, nuevoPedido)
             .then(() => {
                 alert("¡Pedido realizado con éxito! El pedido de " + plato + " ha sido registrado.");
             })
@@ -53,3 +54,4 @@
     </script>
 </body>
 </html>
+
