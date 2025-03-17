@@ -3,58 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La cocina de Ana</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
-    <script src="firebase-config.js"></script>
+    <title>Bienvenido a la Cocina de Ana</title>
     <link rel="stylesheet" href="styles.css">
+    <script type="module" src="firebase-config.js"></script>
 </head>
 <body>
-    <div id="qr-section">
-        <h2>Escanea el código QR para acceder al menú</h2>
-        <canvas id="qrcode"></canvas>
+    <!-- Página 1: Introducción y bienvenida -->
+    <div id="pagina1">
+        <h1>Bienvenido a la cocina de Ana</h1>
+        <button id="comenzarBtn">Comenzar</button>
     </div>
-    
-    <div id="login">
-        <h2>Acceso para miembros</h2>
-        <input type="text" id="username" placeholder="Usuario">
-        <input type="password" id="password" placeholder="Contraseña">
-        <button onclick="login()">Ingresar</button>
-    </div>
-    
-    <div id="app">
-        <h1>Bienvenido a La cocina de Ana</h1>
-        <button id="startOrder">Comenzar pedido</button>
-    </div>
-    
-    <script>
-        document.getElementById("startOrder").addEventListener("click", function() {
-            window.location.href = "menu.html";
-        });
 
-        function login() {
-            const user = document.getElementById("username").value;
-            const pass = document.getElementById("password").value;
-            if (user === "1234" && pass === "1234") {
-                alert("Acceso concedido");
-                window.location.href = "admin.html";
-            } else {
-                alert("Usuario o contraseña incorrectos");
-            }
-        }
+    <!-- Página 2: Opciones de cliente -->
+    <div id="pagina2" class="hidden">
+        <button id="verMenuBtn">Ver Menú</button>
+        <button id="pedidoChatBtn">Pedido Chat</button>
+    </div>
 
-        // Generar código QR
-        function generateQR() {
-            const url = window.location.origin + "/menu.html?mesa=1";
-            const qr = new QRious({
-                element: document.getElementById('qrcode'),
-                value: url,
-                size: 200
-            });
-        }
-        generateQR();
-    </script>
+    <!-- Página 3: Ver Menú -->
+    <div id="pagina3" class="hidden">
+        <h2>Menú</h2>
+        <div class="plato" id="hamburguesa">
+            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWFpeDg5ZHJqOWt2NmlqNjN2eWEwZ2ZkeG80eGJmaXNuMjlmcGJhaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ltLLWLhZXJCZW/giphy.gif" alt="Hamburguesa de buey">
+            <button>Pedir</button>
+        </div>
+        <div class="plato" id="croquetas">
+            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2hycWRoN25sdXk0eXRjdnpjZ3A5N2lqb3BmOGR1cjYxYmUzZ3VkayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xb18nc6LTAOm2PIwcD/giphy.gif" alt="Croquetas">
+            <button>Pedir</button>
+        </div>
+        <div class="plato" id="ensalada">
+            <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGRja2dxbHVoZ3Y3aXc5ZnN0MGNpZWF1OGR2MmMyajc0NnYxazlrdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Q7pQs9EPezLPtUhAcm/giphy.gif" alt="Ensalada césar">
+            <button>Pedir</button>
+        </div>
+        <div class="plato" id="entrecot">
+            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWR5OXg3ZTY1aXNlM3Zob2g4ODRleDNzN2w0NzNhcTM1a29kbms0ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QVIs84qNipWhq0fPVz/giphy.gif" alt="Entrecot">
+            <button>Pedir</button>
+        </div>
+        <button id="volverBtn">Volver</button>
+    </div>
+
+    <!-- Página 4: Chat -->
+    <div id="pagina4" class="hidden">
+        <h2>Chat con el camarero</h2>
+        <textarea id="mensajeCliente" placeholder="Escribe tu mensaje..."></textarea>
+        <button id="enviarMensajeBtn">Enviar</button>
+        <button id="volverChatBtn">Volver</button>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>

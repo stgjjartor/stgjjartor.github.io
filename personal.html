@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zona del Personal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Zona Personal -->
+    <div id="personalArea">
+        <button id="mesasBtn">Mesas</button>
+        <button id="chatBtn">Chat</button>
+    </div>
+
+    <!-- Mesas -->
+    <div id="mesasPage" class="hidden">
+        <h2>Mesas</h2>
+        <p>Mesa 1</p>
+        <button id="volverMesasBtn">Volver</button>
+    </div>
+
+    <!-- Chat -->
+    <div id="chatPage" class="hidden">
+        <h2>Chat de la Mesa 1</h2>
+        <div id="chatMessages"></div>
+        <button id="volverChatBtn">Volver</button>
+    </div>
+
+    <script src="personal.js"></script>
+</body>
+</html>
