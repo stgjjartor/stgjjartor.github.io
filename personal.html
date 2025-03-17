@@ -5,27 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zona del Personal</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Importar Firebase para que las funciones estén disponibles -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
-        
-        // Configuración de Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyBE00qPqjZQxCyFVPVeTGBBmjTm-tQL-bw",
-            authDomain: "lacocinadeana-d99e4.firebaseapp.com",
-            databaseURL: "https://lacocinadeana-d99e4-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "lacocinadeana-d99e4",
-            storageBucket: "lacocinadeana-d99e4.firebasestorage.app",
-            messagingSenderId: "524705575432",
-            appId: "1:524705575432:web:75211ec85fe2d4b52a57bd",
-            measurementId: "G-CV273FDWV9"
-        };
-
-        // Inicializar Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-    </script>
+    <script type="module" src="firebase-config.js"></script> <!-- Aquí incluimos Firebase -->
 </head>
 <body>
     <div id="personalArea">
@@ -49,16 +29,20 @@
     </div>
 
     <script>
-        // Función para leer los pedidos de la Mesa 1 desde Firebase
+        // Leer los pedidos de la Mesa 1 desde Firebase
         const pedidosRef = ref(database, 'pedidos/mesa1'); // Ruta para los pedidos de la Mesa 1
         const pedidosContainer = document.getElementById('pedidos');
 
+        // Obtener los datos de la base de datos de Firebase
         get(pedidosRef).then((snapshot) => {
             if (snapshot.exists()) {
-                const pedidoData = snapshot.val();
-                const pedidoElement = document.createElement('div');
-                pedidoElement.textContent = `Plato: ${pedidoData.plato}, Fecha: ${pedidoData.fecha}`;
-                pedidosContainer.appendChild(pedidoElement);
+                const pedidosData = snapshot.val();
+                for (let key in pedidosData) {
+                    const pedido = pedidosData[key];
+                    const pedidoElement = document.createElement('div');
+                    pedidoElement.textContent = `Plato: ${pedido.plato}, Fecha: ${pedido.fecha}`;
+                    pedidosContainer.appendChild(pedidoElement);
+                }
             } else {
                 pedidosContainer.textContent = "No hay pedidos.";
             }
@@ -66,10 +50,11 @@
             console.error("Error al leer los pedidos: " + error);
         });
 
-        // Función para leer los mensajes del chat de la Mesa 1 desde Firebase
+        // Leer los mensajes del chat de la Mesa 1 desde Firebase
         const chatRef = ref(database, 'chat/mesa1'); // Ruta para el chat de la Mesa 1
         const chatMessagesContainer = document.getElementById('chatMessages');
 
+        // Obtener los mensajes del chat
         get(chatRef).then((snapshot) => {
             if (snapshot.exists()) {
                 const chatData = snapshot.val();
