@@ -3,8 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const comenzarBtn = document.getElementById('comenzarBtn');
     const pagina1 = document.getElementById('pagina1');
     const pagina2 = document.getElementById('pagina2');
+    const pagina3 = document.getElementById('pagina3');
+    const pagina4 = document.getElementById('pagina4');
     const verMenuBtn = document.getElementById('verMenuBtn');
     const pedidoChatBtn = document.getElementById('pedidoChatBtn');
+    const volverBtn = document.getElementById('volverBtn');
+    const volverChatBtn = document.getElementById('volverChatBtn');
 
     // Agregar el evento de clic para el botón "Comenzar"
     comenzarBtn.addEventListener('click', function () {
@@ -12,27 +16,27 @@ document.addEventListener('DOMContentLoaded', function () {
         pagina2.classList.remove('hidden');  // Mostrar la página 2
     });
 
-    // Evento para el botón "Ver Menú" para redirigir a la página del menú
+    // Evento para el botón "Ver Menú" (Página 3)
     verMenuBtn.addEventListener('click', function () {
-        window.location.href = 'https://stgjjartor.github.io/index.html';  // Redirigir al menú
+        pagina2.classList.add('hidden');  // Ocultar la página 2
+        pagina3.classList.remove('hidden');  // Mostrar la página 3
     });
 
-    // Evento para el botón "Pedido Chat" para redirigir a la página del chat
+    // Evento para el botón "Pedido Chat" (Página 4)
     pedidoChatBtn.addEventListener('click', function () {
-        window.location.href = 'https://stgjjartor.github.io/personal.html';  // Redirigir al chat
+        pagina2.classList.add('hidden');  // Ocultar la página 2
+        pagina4.classList.remove('hidden');  // Mostrar la página 4
     });
 
-    // Configuración para el botón "Volver" en la Página 3
-    const volverBtn = document.getElementById('volverBtn');
+    // Configuración para el botón "Volver" en la Página 3 (Vuelve a la Página 2)
     volverBtn.addEventListener('click', function () {
-        pagina2.classList.add('hidden');
-        pagina1.classList.remove('hidden');
+        pagina3.classList.add('hidden');  // Ocultar la página 3
+        pagina2.classList.remove('hidden');  // Mostrar la página 2
     });
 
-    // Configuración para el botón "Volver" en la Página 4
-    const volverChatBtn = document.getElementById('volverChatBtn');
+    // Configuración para el botón "Volver" en la Página 4 (Vuelve a la Página 2)
     volverChatBtn.addEventListener('click', function () {
-        pagina2.classList.remove('hidden');
-        pagina4.classList.add('hidden');
+        pagina4.classList.add('hidden');  // Ocultar la página 4
+        pagina2.classList.remove('hidden');  // Mostrar la página 2
     });
 });
