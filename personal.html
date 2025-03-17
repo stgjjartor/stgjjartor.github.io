@@ -10,10 +10,22 @@
 <body>
     <div id="personalArea">
         <h2>Pedidos de la Mesa 1</h2>
+
+        <!-- Sección de pedidos -->
         <div id="pedidos">
-            <!-- Aquí se mostrarán los pedidos -->
+            <h3>Pedidos</h3>
+            <!-- Los pedidos de la mesa 1 se agregarán aquí dinámicamente -->
         </div>
-        <button onclick="window.location.href='opciones_cliente.html'">Volver</button>
+
+        <!-- Sección de chat -->
+        <div id="chat">
+            <h3>Chat de la Mesa 1</h3>
+            <div id="chatMessages">
+                <!-- Los mensajes del chat se mostrarán aquí -->
+            </div>
+        </div>
+
+        <button onclick="window.location.href='opciones_personal.html'">Volver</button>
     </div>
 
     <script>
@@ -24,7 +36,7 @@
         // Obtener los datos de la base de datos de Firebase
         get(pedidosRef).then((snapshot) => {
             if (snapshot.exists()) {
-                // Si hay datos, los mostramos
+                // Si hay pedidos, los mostramos
                 const pedidoData = snapshot.val();
                 const pedidoElement = document.createElement('div');
                 pedidoElement.textContent = `Plato: ${pedidoData.plato}, Fecha: ${pedidoData.fecha}`;
@@ -35,6 +47,24 @@
             }
         }).catch((error) => {
             console.error("Error al leer los pedidos: " + error);
+        });
+
+        // Leer los mensajes del chat de la Mesa 1
+        const chatRef = ref(database, 'chat/mesa1'); // Ruta para el chat de la Mesa 1
+        const chatMessagesContainer = document.getElementById('chatMessages');
+
+        // Obtener los mensajes del chat
+        get(chatRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const chatData = snapshot.val();
+                const messageElement = document.createElement('div');
+                messageElement.textContent = chatData.mensaje;
+                chatMessagesContainer.appendChild(messageElement);
+            } else {
+                chatMessagesContainer.textContent = "No hay mensajes en el chat.";
+            }
+        }).catch((error) => {
+            console.error("Error al leer los mensajes del chat: " + error);
         });
     </script>
 </body>
