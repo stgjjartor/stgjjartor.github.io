@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novestra - Agencia Boutique</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <img src="logo.png" alt="Logo Novestra" class="logo" />
+      <nav>
+        <a href="#servicios">Servicios</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container fade-in">
+      <h2>Impulsamos tu negocio con inteligencia artificial</h2>
+      <p>En Novestra, combinamos creatividad, estrategia y tecnología para aumentar tus ventas y posicionar tu marca con campañas inteligentes.</p>
+      <a href="trabaja.html" class="btn">Trabaja con nosotros</a>
+    </div>
+  </section>
+
+  <section id="servicios">
+    <div class="container">
+      <h2>Servicios</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Publicidad Digital que Convierte</h3>
+          <p>Campañas automatizadas en redes y Google Ads que llegan al cliente ideal en el momento justo.</p>
+        </div>
+        <div class="card">
+          <h3>Automatización con IA</h3>
+          <p>Analizamos datos en tiempo real para optimizar tus decisiones de marketing y maximizar resultados.</p>
+        </div>
+        <div class="card">
+          <h3>SEO & Contenido Inteligente</h3>
+          <p>Posicionamos tu marca con contenido de valor creado estratégicamente para cada etapa del embudo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="nosotros">
+    <div class="container">
+      <h2>Sobre Nosotros</h2>
+      <p>Somos <b>Novestra</b>, una agencia boutique enfocada en escalar negocios únicos mediante estrategias digitales potenciadas por <b>inteligencia artificial</b>.</p>
+      <p>Trabajamos con un enfoque personalizado y tecnología de vanguardia para que dejes de adivinar y comiences a vender con inteligencia.</p>
+      <p><em>Menos intuición. Más resultados.</em></p>
+    </div>
+  </section>
+
+  <section id="testimonios">
+    <div class="container">
+      <h2>Lo que dicen nuestros clientes</h2>
+      <div class="carrusel-testimonios">
+        <div class="slide active">
+          <p>"Novestra nos ayudó a escalar nuestras campañas y triplicar el alcance. Se sienten como parte de nuestro equipo."</p>
+          <h4>— Carla Mendoza, CEO de Nülab</h4>
+        </div>
+        <div class="slide">
+          <p>"Por fin encontramos una agencia que entiende nuestro negocio. Estrategia clara, resultados medibles y trato humano."</p>
+          <h4>— Andrés López, Director de Ventas en EcoVida</h4>
+        </div>
+        <div class="slide">
+          <p>"Desde el branding hasta el contenido, Novestra nos dio una identidad coherente y atractiva. 100% recomendados."</p>
+          <h4>— Fernanda Ríos, Fundadora de Yumi Studio</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="container">
+      <h2>Contacto</h2>
+      <form>
+        <input type="text" placeholder="Tu nombre" required />
+        <input type="email" placeholder="Tu correo" required />
+        <textarea placeholder="¿Cómo podemos ayudarte?" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Novestra. Todos los derechos reservados.</p>
+      <div class="social">
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Facebook</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let slides = document.querySelectorAll(".slide");
+    let index = 0;
+
+    function showNextSlide() {
+      slides[index].classList.remove("active");
+      index = (index + 1) % slides.length;
+      slides[index].classList.add("active");
+    }
+
+    setInterval(showNextSlide, 5000); // Cambia cada 5 segundos
+  </script>
+</body>
+</html>
