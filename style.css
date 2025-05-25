@@ -274,44 +274,63 @@ footer {
 }
 
 /* Responsive: Smartphones */
-@media (max-width: 480px) {
-  h1, h2, h3 {
-    font-size: 1.3rem;
-  }
-
-  p, a, input, textarea, button {
-    font-size: 1rem;
-  }
-
-  .btn {
-    padding: 10px 20px;
-    width: 100%;
-  }
-
-  nav {
+@media (max-width: 768px) {
+  /* Ajustes para contenedor del header */
+  header .container {
     flex-direction: column;
-    gap: 5px;
+    align-items: center;
+  }
+
+  /* Logo más grande y centrado */
+  .logo {
+    height: 100px;
+    margin: 10px auto;
+    display: block;
+  }
+
+  /* Centrado y espaciado en navegación */
+  nav {
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
   }
 
   nav a {
-    font-size: 14px;
-    margin: 5px 0;
+    display: block;
+    margin: 10px 0;
+    font-size: 18px;
   }
 
-  .card {
-    width: 90%;
+  /* Ajustes para sección hero */
+  .hero h1 {
+    font-size: 2rem;
+    line-height: 1.4;
+    margin-bottom: 15px;
   }
 
-  .hero {
-    padding: 100px 15px;
+  .hero p {
+    font-size: 1.1rem;
+    line-height: 1.6;
   }
 
-  form {
-    width: 100%;
-    padding: 0 10px;
+  .hero .btn {
+    font-size: 1.1rem;
+    padding: 14px 28px;
+    margin-top: 25px;
   }
 
-  .logo {
-    height: 100px;
+  /* Carrusel mobile */
+  .carrusel-testimonios {
+    height: auto;
+  }
+
+  .slide {
+    position: relative;
+    opacity: 1;
+    display: none;
+  }
+
+  .slide.active {
+    display: block;
   }
 }
